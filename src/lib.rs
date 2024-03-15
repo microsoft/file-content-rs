@@ -1,14 +1,11 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
+mod constants;
+mod encoding;
+mod file;
+mod text_data;
+mod utf16;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use encoding::Encoding;
+pub use file::File;
+pub use file::FileContent;
+pub use text_data::TextData;
+pub use text_data::TextDataError;
