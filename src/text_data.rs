@@ -33,7 +33,7 @@ impl TryFrom<&[u8]> for TextData {
         if bytes.starts_with(UTF8_BOM) {
             Ok(TextData {
                 data: String::from_utf8(bytes[UTF8_BOM_LENGTH..].to_vec())?,
-                encoding: Encoding::Utf8WithBom,
+                encoding: Encoding::Utf8Bom,
             })
         } else if bytes.starts_with(UTF16BE_BOM) {
             Ok(TextData {
@@ -143,7 +143,7 @@ mod tests {
         let subject = TextData::try_from(bytes).expect("Should pass");
         let expected = TextData {
             data: content.into(),
-            encoding: Encoding::Utf8WithBom,
+            encoding: Encoding::Utf8Bom,
         };
 
         assert_eq!(subject, expected);
