@@ -8,7 +8,7 @@ mod file_io_tests {
     const ENCODED_FILES_ROOT: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/tests/data");
 
     #[test_case("UTF8/unicode", Encoding::Utf8; "UTF-8")]
-    #[test_case("UTF8BOM/unicode", Encoding::Utf8WithBom; "UTF-8WithBom")]
+    #[test_case("UTF8BOM/unicode", Encoding::Utf8Bom; "UTF-8WithBom")]
     #[test_case("UTF16BE/unicode", Encoding::Utf16Be; "UTF-16BE")]
     #[test_case("UTF16LE/unicode", Encoding::Utf16Le; "UTF-16LE")]
     fn save_encoded_content(path: &str, encoding: Encoding) -> anyhow::Result<()> {
@@ -26,7 +26,7 @@ mod file_io_tests {
             },
         };
 
-        file_content.save()?;
+        file_content.save_to_path()?;
 
         let bytes_after_saving = fs::read(&path)?;
 
@@ -47,7 +47,7 @@ mod file_io_tests {
             },
         };
 
-        file_content.save()?;
+        file_content.save_to_path()?;
 
         let bytes_after_saving = fs::read(&path)?;
 
