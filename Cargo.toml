@@ -1,9 +1,14 @@
 [package]
 name = "file-content"
 version = "0.1.0"
+authors = ["Microsoft Corporation"]
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+description = "A library for working with files and common text data encodings."
+license = "MIT"
+repository = "https://github.com/microsoft/file-content-rs"
+readme = "README.md"
+keywords = ["encodings", "utf8", "utf16", "unicode", "BOM", "file-content"]
+categories = ["encoding", "filesystem"]
 
 [dependencies]
 thiserror = "1.0.57"
