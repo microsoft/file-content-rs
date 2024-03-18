@@ -1,10 +1,40 @@
 # `file-content`
 
-A small library for reading file content as `UTF-8`, `UTF-8-BOM`, `UTF-16-BE`, `UTF-16-LE`, or raw bytes.
+A small library for reading file content/text data from disk, or anywhere else.
+
+## Supported Encodings
+* `UTF-8`
+* `UTF-8-BOM`
+* `UTF-16-BE`
+* `UTF-16-LE`
+* or raw bytes
 
 ## Usage
 
-TBD
+There are two main structs in this crate.
+* `file_content::File`: A wrapper around a `PathBuf` and a `file_content::FileContent`.
+  
+  Use this struct for easily reading file content from disk that may be in any of the supported encodings.
+
+* `file_content::FileContent`: An enum of the kind of content, either `Encoded` or `Binary`. If `Encoded`, the variant holds the encoding that content had, and a `String` representation of it in memory. If `Binary`, then a `Vec<u8>` of the raw data is held.
+
+Example: `read_file.rs` reads a file from disk and prints the path, content type, and content:
+```rust
+use anyhow::anyhow;
+use file_content::File;
+
+fn main() -> anyhow::Result<()> {
+    let file = std::env::args()
+        .nth(1)
+        .ok_or_else(|| anyhow!("Usage: read_file <file>"))?;
+
+    let file = File::new_from_path(file)?;
+
+    println!("{}", file);
+
+    Ok(())
+}
+```
 
 ## Contributing
 
