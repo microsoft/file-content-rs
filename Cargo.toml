@@ -7,7 +7,9 @@ description = "A library for working with files and common text data encodings."
 license = "MIT"
 repository = "https://github.com/microsoft/file-content-rs"
 readme = "README.md"
+# At most 5 keywords
 keywords = ["encodings", "utf8", "utf16", "unicode", "BOM", "file-content"]
+# At most 5 exact matching categories from https://crates.io/categories
 categories = ["encoding", "filesystem"]
 
 [dependencies]
