@@ -1,0 +1,28 @@
+name: Crates.io Publish
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+        override: true
+
+    - name: Build
+      run: cargo build --release
+
+    - name: Check for [deploy] in commit message
+      id: check_commit
+      run: echo "::set-output name=deploy::$(if echo '${{ github.event.head_commit.message }}' | grep -Fq '[deploy]'; then echo 'true'; else echo 'false'; fi)"
+
+    - name: Publish
+      if: steps.check_commit.outputs.deploy == 'true'
+      run: cargo publish
