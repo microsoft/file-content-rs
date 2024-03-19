@@ -1,4 +1,9 @@
-use std::{fmt::Display, fs, io::Write, path::PathBuf};
+use std::{
+    fmt::Display,
+    fs,
+    io::{Read, Write},
+    path::PathBuf,
+};
 
 use crate::{
     encoding::{to_utf16_be, to_utf16_le, to_utf8_bom, Encoding},
@@ -91,6 +96,18 @@ impl File {
         let mut writer = fs::File::create(&self.path)?;
         self.content.write(&mut writer)
     }
+}
+
+/// Read the content and return as a [String] if it can be decoded as one of the supported encodings from [Encoding].
+pub fn read_to_string(input: impl Read) -> Result<String, FileError> {
+    read_to_text_data(input).map(|content| content.data)
+}
+
+/// Read the content and return as a [TextData] if it can be decoded as one of the supported encodings from [Encoding].
+pub fn read_to_text_data(mut input: impl Read) -> Result<TextData, FileError> {
+    let mut bytes: Vec<u8> = vec![];
+    input.read_to_end(&mut bytes)?;
+    Ok(TextData::try_from(bytes.as_slice())?)
 }
 
 #[cfg(test)]
