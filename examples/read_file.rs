@@ -13,7 +13,7 @@ fn main() -> anyhow::Result<()> {
 
     println!("{file}");
 
-    let content = file_content::read_to_string_from_path(&path)?;
+    let content = file_content::read_to_string(&path)?;
     println!("{content}");
 
     Ok(())

@@ -99,14 +99,14 @@ impl File {
 }
 
 /// Read the content and return as a [String] if it can be decoded as one of the supported encodings from [Encoding].
-pub fn read_to_string(input: impl Read) -> Result<String, FileError> {
+pub fn read(input: impl Read) -> Result<String, FileError> {
     read_to_text_data(input).map(|content| content.data)
 }
 
 /// Read the contents of a file from the given path and return as a [String] if it can be decoded as one of the supported encodings from [Encoding].
-pub fn read_to_string_from_path(path: impl AsRef<Path>) -> Result<String, FileError> {
+pub fn read_to_string(path: impl AsRef<Path>) -> Result<String, FileError> {
     let file = fs::File::open(path)?;
-    read_to_string(file)
+    read(file)
 }
 
 /// Read the content and return as a [TextData] if it can be decoded as one of the supported encodings from [Encoding].
