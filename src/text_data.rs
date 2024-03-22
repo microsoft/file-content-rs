@@ -1,9 +1,14 @@
+use std::fs;
+use std::io::Read;
+use std::path::Path;
+
 use crate::constants::{
     BINARY_DETECTION_THRESHOLD, UTF16BE_BOM, UTF16LE_BOM, UTF16_BOM_LENGTH, UTF8_BOM,
     UTF8_BOM_LENGTH, ZERO_BYTE,
 };
 use crate::encoding::Encoding;
 use crate::utf16::{to_u16_be, to_u16_le, UnevenByteSequenceError};
+use crate::FileError;
 
 #[derive(Debug, PartialEq)]
 pub struct TextData {
@@ -24,6 +29,17 @@ pub enum TextDataError {
 
     #[error("File content is binary")]
     Binary,
+}
+
+impl TryFrom<&Path> for TextData {
+    type Error = FileError;
+
+    fn try_from(path: &Path) -> Result<Self, Self::Error> {
+        let mut file = fs::File::open(path)?;
+        let mut bytes: Vec<u8> = vec![];
+        file.read_to_end(&mut bytes)?;
+        Ok(TextData::try_from(bytes.as_slice())?)
+    }
 }
 
 impl TryFrom<&[u8]> for TextData {

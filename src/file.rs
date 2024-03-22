@@ -99,21 +99,16 @@ impl File {
 }
 
 /// Read the content and return as a [String] if it can be decoded as one of the supported encodings from [Encoding].
-pub fn read(input: impl Read) -> Result<String, FileError> {
-    read_to_text_data(input)?.data
+pub fn read_from_reader(mut input: impl Read) -> Result<String, FileError> {
+    let mut bytes = vec![];
+    input.read_to_end(&mut bytes)?;
+    let text_data = TextData::try_from(bytes.as_slice())?;
+    Ok(text_data.data)
 }
 
 /// Read the contents of a file from the given path and return as a [String] if it can be decoded as one of the supported encodings from [Encoding].
 pub fn read_to_string(path: impl AsRef<Path>) -> Result<String, FileError> {
-    let file = fs::File::open(path)?;
-    read(file)
-}
-
-/// Read the content and return as a [TextData] if it can be decoded as one of the supported encodings from [Encoding].
-pub fn read_to_text_data(mut input: impl Read) -> Result<TextData, FileError> {
-    let mut bytes: Vec<u8> = vec![];
-    input.read_to_end(&mut bytes)?;
-    Ok(TextData::try_from(bytes.as_slice())?)
+    Ok(TextData::try_from(path.as_ref())?.data)
 }
 
 #[cfg(test)]
