@@ -100,7 +100,7 @@ impl File {
 
 /// Read the content and return as a [String] if it can be decoded as one of the supported encodings from [Encoding].
 pub fn read(input: impl Read) -> Result<String, FileError> {
-    read_to_text_data(input).map(|content| content.data)
+    read_to_text_data(input)?.data
 }
 
 /// Read the contents of a file from the given path and return as a [String] if it can be decoded as one of the supported encodings from [Encoding].
