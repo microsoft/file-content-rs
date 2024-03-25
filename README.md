@@ -1,4 +1,6 @@
-# `file-content`
+# `file-content` 
+
+![Crates.io Version](https://img.shields.io/crates/v/file-content?style=for-the-badge&color=blue)
 
 A small library for reading file content/text data from disk, or anywhere else.
 
