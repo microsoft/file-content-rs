@@ -1,8 +1,7 @@
 # `file-content` 
 
-| Crates.io | Docs |
-|-----------|------|
-[![Crates.io Version](https://img.shields.io/crates/v/file-content?style=for-the-badge&color=blue)](https://crates.io/crates/file-content) | [docs.rs/file-content](https://docs.rs/file-content/latest/file_content/) |
+[![Crates.io Version](https://img.shields.io/crates/v/file-content?style=for-the-badge&color=blue)](https://crates.io/crates/file-content)  [![docs.rs](https://img.shields.io/docsrs/file-content?style=for-the-badge&color=green)
+](https://docs.rs/file-content/latest/file_content/)
 
 A small library for reading file content/text data from disk, or anywhere else, into a `String`.
 
