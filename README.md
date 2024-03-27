@@ -1,6 +1,9 @@
-# `file-content`
+# `file-content` 
 
-A small library for reading file content/text data from disk, or anywhere else.
+[![Crates.io Version](https://img.shields.io/crates/v/file-content?style=for-the-badge&color=blue)](https://crates.io/crates/file-content)  [![docs.rs](https://img.shields.io/docsrs/file-content?style=for-the-badge&color=green)
+](https://docs.rs/file-content/latest/file_content/)
+
+A small library for reading file content/text data from disk, or anywhere else, into a `String`.
 
 ## Supported Encodings
 * `UTF-8`
@@ -24,13 +27,17 @@ use anyhow::anyhow;
 use file_content::File;
 
 fn main() -> anyhow::Result<()> {
-    let file = std::env::args()
+    let file_path = std::env::args()
         .nth(1)
         .ok_or_else(|| anyhow!("Usage: read_file <file>"))?;
 
-    let file = File::new_from_path(file)?;
+    let file: File = File::new_from_path(&file_path)?;
 
-    println!("{}", file);
+    println!("{:?}", file);
+
+    let content_only: String = file_content::read_to_string(&file_path)?;
+
+    println!("{content_only}");
 
     Ok(())
 }
