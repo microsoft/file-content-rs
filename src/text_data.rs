@@ -10,12 +10,14 @@ use crate::encoding::Encoding;
 use crate::utf16::{to_u16_be, to_u16_le, UnevenByteSequenceError};
 use crate::FileError;
 
+/// A struct to hold the data of a text file and the encoding used to read it.
 #[derive(Debug, PartialEq)]
 pub struct TextData {
     pub data: String,
     pub encoding: Encoding,
 }
 
+/// The possible errors that can occur when working with [TextData] structs.
 #[derive(Debug, thiserror::Error)]
 pub enum TextDataError {
     #[error(transparent)]

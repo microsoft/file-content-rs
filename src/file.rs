@@ -10,6 +10,11 @@ use crate::{
     text_data::TextData,
 };
 
+/// An enum that represents the possible contents of a file
+/// 
+/// - `Encoded`: The content is a string that can be decoded as one of the
+/// supported encodings from [Encoding] (held in a [TextData])
+/// - `Binary`: The content is a sequence of bytes that cannot be decoded as a string
 #[derive(Debug, PartialEq)]
 pub enum FileContent {
     Encoded { content: TextData },
